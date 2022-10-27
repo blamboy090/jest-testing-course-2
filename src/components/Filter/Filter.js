@@ -1,4 +1,4 @@
-const Filter = () => {
+const Filter = () => 
   <div className="pet-filter-container">
     <div className="filter-container">
       <label htmlFor="favourite">Favourite</label>
@@ -17,6 +17,6 @@ const Filter = () => {
       </select>
     </div>
   </div>;
-};
+
 
 export default Filter;
