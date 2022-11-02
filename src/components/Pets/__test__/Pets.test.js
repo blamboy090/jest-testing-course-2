@@ -3,6 +3,7 @@ import Pets from "../Pets";
 import { rest } from "msw";
 import { setupServer } from "msw/node";
 import catsMock from "../../../mocks/cats.json";
+import userEvent from "@testing-library/user-event";
 
 const server = setupServer(
   rest.get("http://localhost:4000/cats", (req, res, ctx) => {
@@ -20,5 +21,23 @@ describe("Pets", () => {
   test("should render the correct amount of cards", async () => {
     const cards = await screen.findAllByRole("article");
     expect(cards.length).toBe(5);
+  });
+
+  test("should filter for male cats", async () => {
+    const cards = await screen.findAllByRole("article");
+    userEvent.selectOptions(screen.getAllByLabelText(/gender/i), "male");
+    
+    expect(screen.getAllByRole("article")).toStrictEqual([cards[1], cards[3]]);
+  });
+
+  test("should filter for female cats", async () => {
+    const cards = await screen.findAllByRole("article");
+    userEvent.selectOptions(screen.getAllByLabelText(/gender/i), "female");
+
+    expect(screen.getAllByRole("article")).toStrictEqual([
+      cards[0],
+      cards[2],
+      cards[4],
+    ]);
   });
 });

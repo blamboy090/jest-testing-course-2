@@ -2,9 +2,12 @@ import { render, screen } from "@testing-library/react";
 import Filter from "../Filter";
 import userEvent from "@testing-library/user-event";
 
+// eslint-disable-next-line testing-library/no-render-in-setup
+beforeEach(() => render(<Filter filters={{}} setFilters={ ()=>{}} />))
+
 describe("Filter", () => {
   test("should be able to change value of favorite select", () => {
-    render(<Filter />);
+    
     const select = screen.getByLabelText(/favourite/i);
     expect(select.value).toBe("any");
     userEvent.selectOptions(select, "favoured");
@@ -14,7 +17,7 @@ describe("Filter", () => {
   });
 
   test("should be able to change value of gender select", () => {
-    render(<Filter />);
+    
     const select = screen.getByLabelText(/gender/i);
     expect(select.value).toBe("any");
     userEvent.selectOptions(select, "male");
